@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <vector>
 using namespace std;
-//####################### if we have ids from 0 to 3 and i enter id 4 and chose to deposit it will be increased on balance of id 3
+//#######################
 class  BankAccount;
 class Client;
 class SavingsBankAccount;
@@ -33,7 +33,6 @@ class BankAccount{
 private:
     int account_ID;
     int Balance;
-    Client* account_owner;
 public:
     BankAccount();
     BankAccount(int b);
@@ -49,21 +48,15 @@ public:
     int MenuSystem();
 };
 //##########################################
-
-
 class SavingsBankAccount : BankAccount{
 private:
     int MinimumBalance = 1000;
     string accounts;
 public:
-
     void withdraw(int amount , int ind);
     void deposit(int amount , int ind);
 
 };
-
-
-
 //##########################################
 void Client :: set_n(string n) {
     Name = n;
@@ -94,7 +87,7 @@ string Client :: get_t() {
 int BankingApplication :: MenuSystem(){
     string option;
     cout << "Please choose option from the following:\n1- Create a new account\n2- List Clients and Accounts"
-            "\n3- Withdraw Money\n4- Deposit Money\n5- Exit\n\n";
+            "\n3- Withdraw Money\n4- Deposit Money\n5- Exit\n\nYour choice is: ";
     getline(cin, option, '\n');
     while(option != "1" && option != "2" && option != "3" && option != "4" && option != "5"){
         cout << "INVALID OPTION..TRY AGAIN\n\n";
@@ -102,8 +95,8 @@ int BankingApplication :: MenuSystem(){
         cout << "Please choose option from the following:\n1- Create a new account\n2- List Clients and Accounts"
                 "\n3- Withdraw Money\n4- Deposit Money\n5- Exit\n\nYour choice is: ";
         getline(cin, option, '\n');
-        cout << "\n\n";
     }
+    cout << "\n\n";
     string name, address, phone, account_type;
     int acc_id;
     Client c;
@@ -125,7 +118,7 @@ int BankingApplication :: MenuSystem(){
             int last_id = before_b.get_account_id();
             acc_id = last_id + 1;
         }
-        cout << "\n\nYour ID is " << acc_id << '\n';
+        cout << "\n\n###############\nYour ID is " << acc_id << "\n###############\n\n";
         b.set_account_id(acc_id);
         b.set_balance(0);
         c.set_n(name);
@@ -141,10 +134,10 @@ int BankingApplication :: MenuSystem(){
             b.set_balance(1000);
             Accounts_list.push_back(b);
             Client_list.push_back(c);
-        }else{
+        }
+        else{
             cout << "Wrong Option, Please Try again" << endl;
         }
-
     }
     if(option == "2"){
         cout << "Name" << setw(21) << "Phone" << setw(22) << "Address" << setw(22)
@@ -175,33 +168,36 @@ int BankingApplication :: MenuSystem(){
         while(index == -1){
             getline(cin, id, '\n');
             cout << "Wrong ID..Try again\n\n";
+            cout << "Please enter your ID: ";
             for (int i = 0; i < Accounts_list.size(); ++i) {
                 if(Accounts_list[i].get_account_id() == stoi(id)){
                     index = i;
                 }
             }
         }
-        cout << "Please enter the amount you want to withdraw: ";
+        cout << "\n\n";
+        cout << "\nPlease enter the amount you want to withdraw: ";
         getline(cin, amount, '\n');
         if(Client_list[index].get_t() == "Basic") {
             if (Accounts_list[index].get_balance() >= stoi(amount)) {
                 Accounts_list[index].set_balance(Accounts_list[index].get_balance() - stoi(amount));
-                cout << "Withdraw has been done successfully, Your balance is currently "
-                     << Accounts_list[index].get_balance() << '\n';
-            } else {
-                cout << "Sorry, No enough balance\n\n";
+                cout << "\n\nWithdraw has been done successfully, Your balance is currently "
+                     << Accounts_list[index].get_balance() << "\n\n";
+            }
+            else {
+                cout << "\nSorry, No enough balance\n\n";
             }
         }
         else if(Client_list[index].get_t() == "Saving"){
             SavingsBankAccount acc;
             acc.withdraw(stoi(amount) , index);
-        }else{
-            cout << "Sorry, There are only 2 options either basic or saving bank account ,try again";
+            cout << "Withdraw has been done successfully, Your balance is currently "
+                 << Accounts_list[index].get_balance() << '\n';
         }
     }
     if(option == "4"){
         string id, amount;
-        int index;
+        int index = -1;
         cout << "Please enter your ID: ";
         getline(cin, id, '\n');
         for (int i = 0; i < Accounts_list.size(); ++i) {
@@ -211,6 +207,7 @@ int BankingApplication :: MenuSystem(){
         }
         while(index == -1){
             cout << "Wrong ID..Try again\n\n";
+            cout << "Please enter your ID: ";
             getline(cin, id, '\n');
             for (int i = 0; i < Accounts_list.size(); ++i) {
                 if(Accounts_list[i].get_account_id() == stoi(id)){
@@ -218,25 +215,25 @@ int BankingApplication :: MenuSystem(){
                 }
             }
         }
-        cout << "Please enter the amount you want to deposit: ";
+        cout << "\nPlease enter the amount you want to deposit: ";
         getline(cin, amount, '\n');
         if(Client_list[index].get_t() == "Basic") {
             Accounts_list[index].set_balance(stoi(amount) + Accounts_list[index].get_balance());
             cout << "\n\nDeposit has been done successfully, Your balance is currently "
-                 << Accounts_list[index].get_balance() << '\n';
-        }else if(Client_list[index].get_t() == "Saving"){
+                 << Accounts_list[index].get_balance() << "\n\n";
+        }
+        else if(Client_list[index].get_t() == "Saving"){
             SavingsBankAccount acc;
             acc.deposit(stoi(amount) , index);
-
+            cout << "\n\nDeposit has been done successfully, Your balance is currently "
+                 << Accounts_list[index].get_balance() << '\n';
         }
     }
     if(option == "5"){
-        cout << "\n\nThanks for using our application\n\n";
+        cout << "\n\n_____________Thanks for using our application_____________\n\n";
     }
     return stoi(option);
 }
-
-
 //###########################################
 BankAccount :: BankAccount(){
     account_ID = 0;
@@ -269,7 +266,6 @@ void BankAccount::deposit(int amount) {
     Balance += amount;
 }
 //###########################################
-
 void SavingsBankAccount:: withdraw(int amount , int ind){
     if(Accounts_list[ind].get_balance() - amount < 1000){
         cout << "Sorry, you can't withdraw " << amount << ",As your account is saving account " << endl;
@@ -280,8 +276,7 @@ void SavingsBankAccount:: withdraw(int amount , int ind){
         set_balance(Accounts_list[ind].get_balance());
     }
 }
-
-void SavingsBankAccount::deposit(int amount , int ind) {
+void SavingsBankAccount:: deposit(int amount , int ind) {
     if(amount >= 100){
         Accounts_list[ind].set_balance(Accounts_list[ind].get_balance() + amount);
         BankAccount::deposit(Accounts_list[ind].get_balance());
