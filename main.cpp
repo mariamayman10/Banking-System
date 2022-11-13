@@ -117,7 +117,7 @@ int BankingApplication ::MenuSystem()
 {
     string option;
     cout << "Please choose option from the following:\n1- Create a new account\n2- List Clients and Accounts"
-            "\n3- Withdraw Money\n4- Deposit Money\n5- Exit\n\n";
+            "\n3- Withdraw Money\n4- Deposit Money\n5- Exit\n\nYour choice is: ";
     getline(cin, option, '\n');
     while (option != "1" && option != "2" && option != "3" && option != "4" && option != "5")
     {
@@ -126,8 +126,8 @@ int BankingApplication ::MenuSystem()
         cout << "Please choose option from the following:\n1- Create a new account\n2- List Clients and Accounts"
                 "\n3- Withdraw Money\n4- Deposit Money\n5- Exit\n\nYour choice is: ";
         getline(cin, option, '\n');
-        cout << "\n\n";
     }
+    cout << "\n\n";
     string name, address, phone, account_type;
     int acc_id;
     Client c;
@@ -156,7 +156,7 @@ int BankingApplication ::MenuSystem()
             int last_id = before_b.get_account_id();
             acc_id = last_id + 1;
         }
-        cout << "\n\nYour ID is " << acc_id << '\n';
+        cout << "\n\n###############\nYour ID is " << acc_id << "\n###############\n\n";
         b.set_account_id(acc_id);
         b.set_balance(0);
         c.set_n(name);
@@ -332,7 +332,6 @@ int BankingApplication ::MenuSystem()
         }
         return stoi(option);
 }
-
 //###########################################
 BankAccount ::BankAccount()
 {
