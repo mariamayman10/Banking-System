@@ -200,12 +200,12 @@ int BankingApplication :: MenuSystem(){
         }
         else{
             string id, amount;
-            int index = -1;
+            int index = -1, int_id;
             cout << "Please enter your ID: ";
             getline(cin, id, '\n');
             while (!isNumber(id))
             {
-                cout << "Enter Valid ID!\nPlease enter your ID: " << endl;
+                cout << "Enter Valid ID!" << endl;
                 getline(cin, id, '\n');
             }
             for (int i = 0; i < Accounts_list.size(); ++i) {
@@ -214,9 +214,9 @@ int BankingApplication :: MenuSystem(){
                 }
             }
             while(index == -1){
-                getline(cin, id, '\n');
                 cout << "ID doesn't exist..Try again\n\n";
                 cout << "Please enter your ID: ";
+                getline(cin, id, '\n');
                 for (int i = 0; i < Accounts_list.size(); ++i) {
                     if(Accounts_list[i].get_account_id() == stoi(id)){
                         index = i;
