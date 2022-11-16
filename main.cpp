@@ -281,7 +281,7 @@ int BankingApplication :: MenuSystem(){
             }
             cout << "\nPlease enter the amount you want to deposit: ";
             getline(cin, amount, '\n');
-            while (!isNumber(id))
+            while (!isNumber(amount))
             {
                 cout << "Enter Valid Amount!\nPlease enter the amount you want to deposit: " << endl;
                 getline(cin, amount, '\n');
